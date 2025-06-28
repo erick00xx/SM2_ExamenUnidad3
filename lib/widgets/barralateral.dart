@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/reporteformulario.dart';
 import '../screens/alert_settings_screen.dart';
 import '../screens/fake_report_map_screen.dart';
+import '../screens/noticias_screen.dart';
 
 class BarraLateral extends StatelessWidget {
   final VoidCallback onLogout;
@@ -23,19 +24,40 @@ class BarraLateral extends StatelessWidget {
                 SizedBox(width: 12),
                 Text(
                   'Reportes Ciudadanos',
-                  style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
           ),
-          
           ListTile(
-            leading: const Icon(Icons.add_circle_outline, color: Colors.blueAccent),
-            title: const Text('Reportar Incidente (Formulario)', 
+            leading: Icon(Icons.article_outlined, color: Colors.teal.shade700),
+            title: const Text(
+              'Noticias',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             onTap: () {
-              Navigator.pop(context); 
+              Navigator.pop(context); // Cierra el drawer
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const NoticiasScreen(), // Navega a la pantalla de noticias
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading:
+                const Icon(Icons.add_circle_outline, color: Colors.blueAccent),
+            title: const Text(
+              'Reportar Incidente (Formulario)',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -44,14 +66,15 @@ class BarraLateral extends StatelessWidget {
               );
             },
           ),
-
           ListTile(
-            leading: Icon(Icons.settings_outlined, color: Colors.green.shade700),
-            title: const Text('Configuración de Alertas', 
+            leading:
+                Icon(Icons.settings_outlined, color: Colors.green.shade700),
+            title: const Text(
+              'Configuración de Alertas',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             onTap: () {
-              Navigator.pop(context); 
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -60,14 +83,14 @@ class BarraLateral extends StatelessWidget {
               );
             },
           ),
-
           ListTile(
             leading: Icon(Icons.map_outlined, color: Colors.purple.shade700),
-            title: const Text('Generar Reportes (Mapa)', 
+            title: const Text(
+              'Generar Reportes (Mapa)',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
             onTap: () {
-              Navigator.pop(context); 
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -76,9 +99,7 @@ class BarraLateral extends StatelessWidget {
               );
             },
           ),
-
           const Spacer(),
-          
           ListTile(
             leading: const Icon(Icons.logout, color: Colors.red),
             title: const Text('Cerrar Sesión'),
