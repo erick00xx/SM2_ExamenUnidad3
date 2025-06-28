@@ -1,0 +1,41 @@
+# .github/workflows/quality-check.yml
+
+name: Quality Check
+
+# Se ejecuta en cada push y pull request a la rama 'main'
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # El nombre del trabajo es 'analyze'
+  analyze:
+    # Se ejecutará en una máquina virtual de Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clona tu repositorio para que el workflow tenga acceso a tu código
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Usamos v4 que es la más reciente
+
+      # 2. Configura el entorno de Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.5'  # Asegúrate que esta versión coincide con la tuya
+          channel: 'stable'          # Especificar el canal es una buena práctica
+          cache: true                # Habilitar caché para acelerar futuras ejecuciones
+
+      # 3. Instala las dependencias del proyecto
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4. Analiza el código buscando errores de estilo y posibles problemas
+      - name: Analyze project source
+        run: flutter analyze
+
+      # 5. Ejecuta todas las pruebas que se encuentren en la carpeta 'test/'
+      - name: Run tests
+        run: flutter test
